@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-Cursor</title>
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<style>
+  :root { --bg:#fff; --fg:#201f1e; --muted:#605e5c; --line:#d2d0ce; --accent:#2b579a; --accent-fg:#fff; --soft:#f3f2f1; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1f1f1f; --fg:#f3f2f1; --muted:#a19f9d; --line:#484644; --accent:#6ea0e8; --accent-fg:#111; --soft:#2b2b2b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:12px; font:13px "Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--fg); }
+  h1 { font-size:15px; margin:0 0 8px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:16px 0 6px; }
+  .row { display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; }
+  input[type=text], input[type=number], select, textarea {
+    width:100%; padding:6px 8px; border:1px solid var(--line); border-radius:3px; background:var(--bg); color:var(--fg); font:inherit; }
+  textarea { resize:vertical; min-height:48px; }
+  button { padding:6px 10px; border:1px solid var(--line); border-radius:3px; background:var(--soft); color:var(--fg); font:inherit; cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button.primary { background:var(--accent); color:var(--accent-fg); border-color:var(--accent); }
+  button.grow { flex:1; }
+  label.chk { display:flex; align-items:center; gap:4px; color:var(--muted); }
+  #status { margin:10px 0; padding:8px; background:var(--soft); border-radius:3px; min-height:34px; }
+  #list { max-height:140px; overflow:auto; border:1px solid var(--line); border-radius:3px; }
+  #list div { padding:3px 8px; border-bottom:1px solid var(--line); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #list div:last-child { border-bottom:0; }
+  #list b { color:var(--accent); margin-right:6px; }
+  .hint { color:var(--muted); font-size:12px; margin-top:4px; }
+</style>
+</head>
+<body>
+  <h1>Multi-Cursor</h1>
+  <div id="status">Loading…</div>
+
+  <h2>1. Place cursors</h2>
+  <div class="row">
+    <button class="grow" id="btnAdd">Add cursor at selection</button>
+    <button id="btnClear">Clear all</button>
+  </div>
+  <div class="row">
+    <button class="grow" id="btnLineStart">Line starts</button>
+    <button class="grow" id="btnLineEnd">Line ends</button>
+  </div>
+  <div class="hint">Line starts/ends: one cursor per paragraph in your current selection.</div>
+
+  <h2>Select all matches</h2>
+  <div class="row"><input type="text" id="find" placeholder="Text to find"></div>
+  <div class="row">
+    <label class="chk"><input type="checkbox" id="matchCase"> Match case</label>
+    <label class="chk"><input type="checkbox" id="wholeWord"> Whole word</label>
+    <label class="chk"><input type="checkbox" id="wildcards"> Wildcards</label>
+    <label class="chk"><input type="checkbox" id="inSel"> In selection only</label>
+  </div>
+  <div class="row"><button class="grow" id="btnMatches">Select all matches</button></div>
+
+  <h2>2. Edit at all cursors</h2>
+  <textarea id="text" placeholder="Text to type (use {n} for a counter)"></textarea>
+  <div class="row">
+    <label class="chk">Counter start <input type="number" id="nStart" value="1" style="width:60px"></label>
+  </div>
+  <div class="row">
+    <button class="primary grow" id="btnType">Type at cursors</button>
+    <button class="grow" id="btnPrefix">Insert before</button>
+    <button class="grow" id="btnSuffix">Insert after</button>
+  </div>
+  <div class="hint">"Type" replaces any selected match and leaves each cursor after the new text, so you can type repeatedly.</div>
+
+  <h2>Transform matches</h2>
+  <div class="row">
+    <select id="caseMode" style="flex:1">
+      <option value="upper">UPPERCASE</option>
+      <option value="lower">lowercase</option>
+      <option value="title">Title Case</option>
+    </select>
+    <button id="btnCase">Apply case</button>
+  </div>
+  <div class="row">
+    <button class="grow" id="btnBold">Bold</button>
+    <button class="grow" id="btnItalic">Italic</button>
+    <button class="grow" id="btnUnderline">Underline</button>
+  </div>
+  <div class="row">
+    <button class="grow" id="btnDelete">Delete selected text</button>
+  </div>
+
+  <h2>Cursors</h2>
+  <div id="list"></div>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>

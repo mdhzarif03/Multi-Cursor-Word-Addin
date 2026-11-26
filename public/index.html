@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-Cursor for Word</title>
+<link rel="icon" href="icon-32.png">
+<style>
+  :root{--bg:#fff;--fg:#201f1e;--muted:#605e5c;--line:#d2d0ce;--accent:#2b579a;--accent-fg:#fff;--soft:#f3f2f1}
+  @media(prefers-color-scheme:dark){:root{--bg:#1b1b1b;--fg:#f3f2f1;--muted:#a19f9d;--line:#484644;--accent:#6ea0e8;--accent-fg:#111;--soft:#272727}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 "Segoe UI",system-ui,sans-serif}
+  main{max-width:720px;margin:0 auto;padding:40px 16px 64px}
+  h1{font-size:32px;margin:0 0 8px}
+  h2{font-size:20px;margin:36px 0 8px}
+  p.lead{font-size:18px;color:var(--muted);margin:0 0 20px}
+  a.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);padding:12px 20px;border-radius:4px;text-decoration:none;font-weight:600}
+  .card{border:1px solid var(--line);background:var(--soft);border-radius:6px;padding:4px 18px 14px;margin-top:12px}
+  ol{padding-left:22px} li{margin:6px 0}
+  code{background:var(--soft);border:1px solid var(--line);padding:1px 5px;border-radius:3px;font-size:14px}
+  table{border-collapse:collapse;width:100%;font-size:15px}
+  td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+  .note{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Multi-Cursor for Word</h1>
+  <p class="lead">Edit many places in a Word document at once: select every match, add cursors, and type, format or transform them together.</p>
+  <a class="btn" href="/manifest.xml" download>Download add-in file</a>
+  <p class="note">Free. Works in Word on the web, Windows and Mac. Reads and edits only the open document, and sends nothing anywhere.</p>
+
+  <h2>Install</h2>
+  <div class="card">
+    <h3>Word on the web (easiest, about 30 seconds)</h3>
+    <ol>
+      <li>Download the add-in file above.</li>
+      <li>Open a document at <code>word.office.com</code>.</li>
+      <li>Go to <b>Home &gt; Add-ins &gt; More Add-ins</b> (or <b>Insert &gt; Add-ins</b>), choose <b>Upload My Add-in</b>, and select the file.</li>
+      <li>Click <b>Multi-Cursor</b> on the Home tab.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Word on Windows</h3>
+    <ol>
+      <li>Download the add-in file and save it in a new folder, e.g. <code>C:\WordAddins</code>.</li>
+      <li>Right-click the folder, <b>Properties &gt; Sharing &gt; Share</b>, and copy the network path (<code>\\PC-NAME\WordAddins</code>).</li>
+      <li>In Word: <b>File &gt; Options &gt; Trust Center &gt; Trust Center Settings &gt; Trusted Add-in Catalogs</b>. Paste the path, click <b>Add catalog</b>, tick <b>Show in Menu</b>, then restart Word.</li>
+      <li><b>Insert &gt; My Add-ins &gt; Shared Folder</b>, select Multi-Cursor, <b>Add</b>.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Word on Mac</h3>
+    <ol>
+      <li>Download the add-in file.</li>
+      <li>Copy it to <code>~/Library/Containers/com.microsoft.Word/Data/Documents/wef/</code> (create the <code>wef</code> folder if missing).</li>
+      <li>Restart Word, then <b>Insert &gt; My Add-ins</b> and pick Multi-Cursor.</li>
+    </ol>
+  </div>
+
+  <h2>What it does</h2>
+  <table>
+    <tr><th>Select all matches</th><td>Find text and select every occurrence (match case, whole word, wildcards, within selection).</td></tr>
+    <tr><th>Add cursors</th><td>Store several positions, or one cursor at the start or end of every line in a selection.</td></tr>
+    <tr><th>Type at all cursors</th><td>Replace or insert at every cursor at once. <code>{n}</code> inserts a counter (1, 2, 3...).</td></tr>
+    <tr><th>Transform</th><td>UPPER, lower, Title Case, bold, italic, underline, delete.</td></tr>
+  </table>
+  <p class="note">Word's add-in API cannot show real blinking carets, so cursors are managed from the task pane. Cursors are cleared when the pane is closed.</p>
+</main>
+</body>
+</html>
