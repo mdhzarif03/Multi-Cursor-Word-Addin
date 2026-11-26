@@ -1,5 +1,9 @@
 {
   "cleanUrls": true,
-  "rewrites": [{ "source": "/manifest.xml", "destination": "/api/manifest" }],
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/manifest.xml",  "destination": "/api/manifest" },
+    { "source": "/install.bat",   "destination": "/api/bat?mode=install" },
+    { "source": "/uninstall.bat", "destination": "/api/bat?mode=uninstall" }
+  ]
 }
